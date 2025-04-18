@@ -1,6 +1,7 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body } from '@nestjs/common';
 import { LanguagesService } from './languages.service';
 import { CreateLanguageDto } from './dto/create-language.dto';
+import { Language } from './entities/language.entity';
 
 @Controller('languages')
 export class LanguagesController {
@@ -9,5 +10,10 @@ export class LanguagesController {
   @Post()
   create(@Body() createLanguageDto: CreateLanguageDto) {
     return this.languagesService.create(createLanguageDto);
+  }
+
+  @Get()
+  findAll(): Promise<Language[]> {
+    return this.languagesService.findAll();
   }
 }

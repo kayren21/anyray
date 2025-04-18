@@ -1,85 +1,109 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-import styles from "@/styles/Home.module.css";
+import styles from "@/styles/Login.module.css";
 import Link from "next/link";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import axios from 'axios';
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { Poppins } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "600"],
+  variable: "--font-poppins",
 });
 
 export default function Login() {
   const router = useRouter();
-  const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const initialValues = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email format').required('Required'),
-    password: Yup.string().min(6, 'Minimum 6 characters').required('Required'),
+    email: Yup.string().email("Invalid email format").required("Required"),
+    password: Yup.string().min(6, "Minimum 6 characters").required("Required"),
   });
 
   const handleSubmit = async (values: typeof initialValues) => {
     setLoading(true);
-    setLoginError('');
+    setLoginError("");
 
     try {
-      const response = await axios.post('http://localhost:3000/users', {...values,firstName:'karina', lastName:'kar', gender:'female',  homeLandId:'2da5c877-055a-4141-a530-755eff5f18d4', translationLanguageId:'774e9523-72f5-472e-a555-40208f588ea9', dob: '2025-10-01', registeredDate: '2005-52-12'});
-      console.log('Login successful:', response.data);
-      
-      // Redirect to homepage or dashboard
-      router.push('/');
+      const response = await axios.post("http://localhost:3000/auth/login", values);
+
+      console.log("Login successful:", response.data);
+      router.push("/vocabulary"); // перенаправляем после логина
     } catch (error: any) {
-      console.error('Login failed:', error.response?.data || error.message);
-      setLoginError(error.response?.data?.message || 'Login failed');
+      console.error("Login failed:", error.response?.data || error.message);
+      setLoginError(error.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="login-container">
-      <h2 className="login-title">Login</h2>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <Form className="login-form">
-          <div className="form-control">
-            <label htmlFor="email">Email</label>
-            <Field type="email" id="email" name="email" />
-            <ErrorMessage name="email" component="div" className="error" />
-          </div>
+    <>
+      <Head>
+        <title>Login | AnyRay</title>
+      </Head>
 
-          <div className="form-control">
-            <label htmlFor="password">Password</label>
-            <Field type="password" id="password" name="password" />
-            <ErrorMessage name="password" component="div" className="error" />
-          </div>
+      <div className={`${styles.page} ${poppins.variable}`}>
+        <div className={styles.loginContainer}>
+          <h2 className={styles.loginTitle}>Login</h2>
 
-          {loginError && <div className="error">{loginError}</div>}
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            <Form className={styles.loginForm}>
+              <div className={styles.formControl}>
+                <label htmlFor="email">Email</label>
+                <Field type="email" id="email" name="email" />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
 
-          <button type="submit" className="submit-button" disabled={loading}>
-            {loading ? 'Logging in...' : 'Submit'}
-          </button>
-        </Form>
-      </Formik>
-    </div>
+              <div className={styles.formControl}>
+                <label htmlFor="password">Password</label>
+                <Field type="password" id="password" name="password" />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
+
+              {loginError && (
+                <div className={styles.error}>{loginError}</div>
+              )}
+
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={loading}
+              >
+                {loading ? "Logging in..." : "Submit"}
+              </button>
+
+              <div className={styles.loginFooter}>
+                <span>Don&apos;t have an account?</span>
+                <Link href="/signup" className={styles.signupLink}>
+                  Sign up
+                </Link>
+              </div>
+            </Form>
+          </Formik>
+        </div>
+      </div>
+    </>
   );
 }

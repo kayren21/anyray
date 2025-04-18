@@ -1,0 +1,70 @@
+.page {
+    background: linear-gradient(to bottom, #36dafd, #fbddb8);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-poppins);
+    padding: 32px;
+  }
+  
+  .formBox {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .heading {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 35px;
+    text-align: center;
+    color: #222;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 16px;
+  }
+  
+  .inputGroup input,
+  .inputGroup select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  
+  .button {
+    margin-top: 12px;
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 0;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #605252;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+  }
+  

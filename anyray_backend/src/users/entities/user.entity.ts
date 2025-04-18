@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Country } from '../../countries/entities/country.entity';
 import { Language } from '../../languages/entities/language.entity';
 
@@ -7,10 +7,10 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'first_name', nullable: true })
   firstName: string;
 
-  @Column()
+  @Column({ name: 'last_name', nullable: true })
   lastName: string;
 
   @Column()
@@ -19,18 +19,20 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   gender: string;
 
-  @Column()
+  @Column({ nullable: true })
   dob: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ name: 'registered_date', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   registeredDate: Date;
 
-  @ManyToOne(() => Country, (country) => country.users, { eager: true })
+  @ManyToOne(() => Country, (country) => country.users, { eager: true, nullable: true})
+  @JoinColumn({ name: 'homeland_id' })
   homeLandId: Country;
 
-  @ManyToOne(() => Language, (language) => language.users, { eager: true })
+  @ManyToOne(() => Language, (language) => language.users, { eager: true, nullable: true })
+  @JoinColumn({ name: 'translation_language' })
   translationLanguage: Language;
 }

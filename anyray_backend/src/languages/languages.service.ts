@@ -15,4 +15,9 @@ export class LanguagesService {
     const newLanguage = this.languageRepository.create(createLanguageDto);
     return await this.languageRepository.save(newLanguage);
   }
+
+  async findAll(): Promise<Language[]> {
+    return this.languageRepository.find();
+  }
+  
 }

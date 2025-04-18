@@ -1,0 +1,97 @@
+/* Общая обёртка */
+.formContainer {
+  background: linear-gradient(to bottom, #36dafd, #fbddb8);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-poppins);
+  padding: 32px;
+}
+
+/* Блок формы */
+.formBox {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 450px;
+  justify-content: space-between;
+}
+
+/* Заголовок */
+.heading {
+  font-size: 26px;
+  font-weight: 500;
+  margin-bottom: 26px;
+  text-align: center;
+  color: #222;
+}
+
+/* Вся форма */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+/* Группы input/select */
+.formControl,
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+/* Стили input и select */
+.formControl input,
+.formGroup select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Кнопка */
+.button {
+  margin-top: 16px;
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #605252;
+}
+
+
+.loginFooter {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+  color: #555;
+}
+
+
+/* Ошибки */
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+/* Стилизация опций */
+.select option {
+  text-transform: capitalize;
+}

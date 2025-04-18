@@ -40,6 +40,9 @@ export class Hub {
   })
   languageLevel: LanguageLevel;
 
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  created_at: Date;
+
   // One-to-Many relationships
   @OneToMany(() => Lexeme, (lexeme) => lexeme.hub)
   lexemes: Lexeme[];

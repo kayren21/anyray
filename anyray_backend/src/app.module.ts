@@ -9,6 +9,7 @@ import { CountriesModule } from './countries/countries.module';
 import { HubModule } from './hub/hub.module';
 import { LexemeModule } from './lexeme/lexeme.module';
 import { DefinitionModule } from './definition/definition.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { DefinitionModule } from './definition/definition.module';
     LexemeModule,
     MaterialsModule,
     DefinitionModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
