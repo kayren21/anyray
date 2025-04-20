@@ -1,4 +1,16 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateLexemeDto } from './create-lexeme.dto';
+import { IsOptional, IsString, IsEnum, IsUrl } from 'class-validator';
+import { InputType } from '../entities/lexeme.entity';
 
-export class UpdateLexemeDto extends PartialType(CreateLexemeDto) {}
+export class UpdateLexemeDto {
+  @IsOptional()
+  @IsString()
+  lexeme?: string;
+
+  @IsOptional()
+  @IsUrl()
+  sourceUrl?: string;
+
+  @IsOptional()
+  @IsEnum(InputType)
+  inputType?: InputType;
+}

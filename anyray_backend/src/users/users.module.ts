@@ -10,6 +10,7 @@ import { LanguagesModule } from '../languages/languages.module'; // Import the L
 import { Hub } from 'src/hub/entities/hub.entity';
 import { HubModule } from 'src/hub/hub.module';
 
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Country, Language, Hub]), // Include the necessary entities

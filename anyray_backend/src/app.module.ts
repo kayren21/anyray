@@ -10,6 +10,8 @@ import { HubModule } from './hub/hub.module';
 import { LexemeModule } from './lexeme/lexeme.module';
 import { DefinitionModule } from './definition/definition.module';
 import { AuthModule } from './auth/auth.module';
+import { ExampleModule } from './example/example.module';
+import { TranslationModule } from './translation/translation.module';
 
 @Module({
   imports: [
@@ -39,6 +41,8 @@ import { AuthModule } from './auth/auth.module';
     MaterialsModule,
     DefinitionModule,
     AuthModule,
+    ExampleModule,
+    TranslationModule,
   ],
   controllers: [],
   providers: [],

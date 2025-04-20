@@ -1,5 +1,5 @@
 // hub.controller.ts
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 import { HubService } from './hub.service';
 import { CreateHubDto } from './dto/create-hub.dto';
 import { Hub } from './entities/hub.entity';
@@ -12,4 +12,12 @@ export class HubController {
   async create(@Body() createHubDto: CreateHubDto): Promise<Hub> {
     return this.hubService.create(createHubDto);
   }
+
+  @Get('default')
+  async getDefaultHub(@Query('userId') userId: string) {
+    const trimmedId = userId.trim(); 
+
+    return this.hubService.findDefaultByUser(trimmedId);
+  }
+
 }

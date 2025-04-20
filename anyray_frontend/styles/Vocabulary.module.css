@@ -1,0 +1,209 @@
+.page {
+  background-color: #f9f9fb;
+  min-height: 100vh;
+  font-family: var(--font-poppins);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 20px 200px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-wrap: wrap;
+}
+
+.logoText {
+  font-family: var(--font-caveat);
+  font-size: 42px;
+  font-weight: 500;
+  color: #222;
+  margin-right: auto;
+  display: inline-block;
+  text-decoration: none;
+}
+
+
+.ray {
+  display: inline-block;
+  color: #36dafd; 
+}
+
+
+
+.nav a:not(:first-child) {
+  text-decoration: none;
+  color: #444;
+  margin-left: 24px;
+  font-weight: 500;
+  font-size: 18px;
+  transition: color 0.2s ease, border-bottom 0.2s ease;
+  padding-bottom: 2px;
+}
+
+.nav a:not(:first-child):hover {
+  border-bottom: 2px solid #fbddb8;
+}
+
+.active {
+  border-bottom: 2px solid #fbddb8;
+}
+
+.content {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: 550;
+  color: #222;
+}
+
+.addButton {
+  background: linear-gradient(to right, #36dafd, #64e1dc);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addButton:hover {
+  transform: translateY(-1px);
+  background-color: #2bcbe0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.date {
+  font-size: 18px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 16px;
+  border-left: 4px solid #36dafd;
+  padding-left: 12px;
+}
+
+.wordList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.wordCard {
+  position: relative;
+  background: white;
+  padding: 14px 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  font-size: 17px;
+  color: #333;
+  transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wordCard::before {
+  content: "📘";
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.wordText {
+  flex-grow: 1;
+  text-align: left; 
+  margin-left: 8px; 
+}
+
+
+.wordCard:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.menuWrapper {
+  position: relative;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuOptions {
+  position: absolute;
+  right: 0;
+  top: 120%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+  padding: 6px 12px;
+  font-size: 15px;
+}
+
+.menuOptions button {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

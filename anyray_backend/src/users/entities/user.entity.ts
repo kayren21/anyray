@@ -7,22 +7,22 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'first_name', nullable: true })
+  @Column({ name: 'first_name', type: 'varchar', length: 100, nullable: true })
   firstName: string;
 
-  @Column({ name: 'last_name', nullable: true })
+  @Column({ name: 'last_name', type: 'varchar', length: 100, nullable: true })
   lastName: string;
 
-  @Column()
+  @Column({type: 'varchar', length: 150, unique: true, nullable: false }) 
   email: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   password: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'enum', enum: ['male', 'female', 'other'], nullable: true })
   gender: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'date', nullable: true })
   dob: Date;
 
   @Column({ name: 'registered_date', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

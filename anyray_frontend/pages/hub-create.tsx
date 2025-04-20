@@ -33,15 +33,31 @@ export default function CreateHub() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    await axios.post('http://localhost:3000/hub', {
-      user_id: userId,
-      target_language: targetLanguage,
-      language_level: level,
-    });
-
-    router.push('/vocabulary');
+  
+    const userId = router.query.user as string;
+    if (!userId) {
+      alert('User ID is missing. Please try refreshing the page.');
+      return;
+    }
+  
+    console.log('Creating hub for user:', userId);
+  
+    try {
+      await axios.post('http://localhost:3000/hub', {
+        user_id: userId,
+        target_language: targetLanguage,
+        language_level: level,
+      });
+  
+      console.log('Redirecting to /vocabulary...');
+      router.push('/vocabulary');
+    } catch (error) {
+      console.error('Error creating hub:', error);
+      alert('Something went wrong while creating your hub.');
+    }
   };
+  
+
 
   return (
     <div className={styles.formContainer}>

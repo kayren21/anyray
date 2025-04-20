@@ -1,0 +1,192 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+  }
+  
+  .modal {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .modalTitle {
+    margin-top: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  .mainWord {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  
+  
+  .sectionTitle {
+    font-size: 18px;
+    margin-bottom: 0px;
+    color: #444;
+  }
+  
+  .list {
+    margin: 0;
+    margin-bottom: 12px;
+  }
+  
+  .listItem {
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: #333;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 8px 12px;
+    margin-bottom: 7px;
+    margin-top: 7px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 0 0 2px transparent;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #36dafd;
+    box-shadow: 0 0 0 1px rgba(54, 218, 253, 0.3);
+  }  
+  
+  .button {
+    background-color: #36dafd;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin-top: 4px;
+  }
+  
+  .button:hover {
+    background-color: #2bcbe0;
+  }
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.section {
+  display: block;
+  margin-bottom: 24px;
+
+}
+
+.addButton {
+    background-color: #36dafd;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin-top: 4px;
+}
+  
+.addButton:hover {
+    background-color: #2bcbe0;
+}
+  
+  
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    background-color: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    transition: background-color 0.2s ease;
+  }
+  
+  .listItem:hover {
+    background-color: #f0faff;
+  }
+  
+  .itemActions {
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  .listItem:hover .itemActions {
+    opacity: 1;
+  }
+  
+  .iconBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 2px;
+    color: #777;
+  }
+  
+  .iconBtn:hover {
+    color: #222;
+  }
+  
+  .inlineInput {
+    width: 100%;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+  
+    background: none;
+    border: none;
+    outline: none;
+  
+  }
+  
+
+  
+  
+  

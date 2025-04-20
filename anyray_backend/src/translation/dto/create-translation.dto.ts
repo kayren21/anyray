@@ -1,12 +1,11 @@
 import { IsNotEmpty, IsUUID, IsString } from 'class-validator';
 
-export class CreateDefinitionDto {
+export class CreateTranslationDto {
   @IsString()
   @IsNotEmpty()
-  definition: string;
+  translation: string;
 
   @IsUUID()
   @IsNotEmpty()
   lexemeId: string;
 }
-

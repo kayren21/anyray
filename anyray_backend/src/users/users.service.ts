@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { Country } from '../countries/entities/country.entity';
 import { Language } from '../languages/entities/language.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { HubService } from '../hub/hub.service';
 import { CreateHubDto } from '../hub/dto/create-hub.dto';
 import { LanguageLevel } from '../hub/entities/hub.entity';
@@ -76,4 +77,38 @@ export class UsersService {
       relations: ['homeLandId', 'translationLanguage'],
     });
   }
+
+  async deleteUser(id: string): Promise<void> {
+    const user = await this.usersRepository.findOneBy({ id });
+  
+    if (!user) {
+      throw new Error(`User with id ${id} not found`);
+    }
+  
+    await this.usersRepository.remove(user);
+  }
+
+  async update(id: string, updateDto: UpdateUserDto): Promise<User> {
+    const user = await this.usersRepository.findOneByOrFail({ id });
+  
+    if (updateDto.homeLandId) {
+      const country = await this.countriesRepository.findOneByOrFail({ id: updateDto.homeLandId });
+      user.homeLandId = country;
+    }
+  
+    if (updateDto.translationLanguageId) {
+      const language = await this.languagesRepository.findOneByOrFail({ id: updateDto.translationLanguageId });
+      user.translationLanguage = language;
+    }
+  
+
+    if (updateDto.firstName !== undefined) user.firstName = updateDto.firstName;
+    if (updateDto.lastName !== undefined) user.lastName = updateDto.lastName;
+    if (updateDto.gender !== undefined) user.gender = updateDto.gender;
+    if (updateDto.dob !== undefined) user.dob = updateDto.dob;
+  
+    return this.usersRepository.save(user);
+  }
+  
+  
 }

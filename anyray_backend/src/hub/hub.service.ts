@@ -19,26 +19,30 @@ export class HubService {
 
   async create(createHubDto: CreateHubDto): Promise<Hub> {
     const { target_language, user_id, language_level } = createHubDto;
-
-    // Find related entities
+  
     const targetLanguage = await this.languageRepository.findOneByOrFail({
-      id: target_language, // Ensure the type matches `Language.id` (number)
+      id: target_language,
     });
-
+  
     const user = await this.userRepository.findOneByOrFail({
-      id: user_id, // Ensure the type matches `User.id` (number)
+      id: user_id,
     });
-
-    // Create new Hub entity
+  
+    const existingHubCount = await this.hubRepository.count({
+      where: { user: { id: user_id } },
+    });
+  
     const newHub = this.hubRepository.create({
-      targetLanguage, // Property name matches the `Hub` entity
-      user, // Property name matches the `Hub` entity
-      languageLevel: language_level, // Map to `Hub` entity field
+      targetLanguage,
+      user,
+      languageLevel: language_level,
+      isDefault: existingHubCount === 0, 
     });
-
-    // Save and return the newly created Hub
+  
     return this.hubRepository.save(newHub);
   }
+  
+  
 
   async findById(id: string): Promise<Hub> {
     return this.hubRepository.findOne({
@@ -46,4 +50,13 @@ export class HubService {
       relations: ['targetLanguage', 'user'],
     });
   }
+
+  async findDefaultByUser(userId: string): Promise<Hub | null> {
+    return this.hubRepository
+      .createQueryBuilder('hub')
+      .leftJoinAndSelect('hub.user', 'user')
+      .where('hub.is_default = true')
+      .andWhere('user.id = :userId', { userId })
+      .getOne();
+  }  
 }

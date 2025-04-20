@@ -1,4 +1,4 @@
-// src/materials/material.entity.ts
+
 import {
     Entity,
     PrimaryGeneratedColumn,

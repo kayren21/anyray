@@ -25,11 +25,17 @@ export class Hub {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Language, { eager: true })
+  @ManyToOne(() => Language, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
   @JoinColumn({ name: 'target_language' })
   targetLanguage: Language;
 
-  @ManyToOne(() => User, { eager: true })
+  @ManyToOne(() => User, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
@@ -40,10 +46,20 @@ export class Hub {
   })
   languageLevel: LanguageLevel;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+  @Column({
+    name: 'created_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
 
-  // One-to-Many relationships
+  @Column({
+    name: 'is_default',
+    type: 'boolean',
+    default: false,
+  })
+  isDefault: boolean;
+
   @OneToMany(() => Lexeme, (lexeme) => lexeme.hub)
   lexemes: Lexeme[];
 }

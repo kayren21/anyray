@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Lexeme } from './entities/lexeme.entity';
@@ -13,34 +13,45 @@ export class LexemeService {
     private readonly hubService: HubService,
   ) {}
 
-  async create(createLexemeDto: CreateLexemeDto): Promise<Lexeme> {
-    const { lexeme, sourceUrl, inputType, hubId } = createLexemeDto;
-
+  async create(dto: CreateLexemeDto): Promise<Lexeme> {
+    const { lexeme, hubId } = dto;
     const hub = await this.hubService.findById(hubId);
-    if (!hub) {
-      throw new Error(`Hub with ID ${hubId} not found`);
-    }
+    if (!hub) throw new NotFoundException('Hub not found');
 
-    const lexemeEntity = this.lexemeRepository.create({
+    const entity = this.lexemeRepository.create({
       lexeme,
-      sourceUrl,
-      inputType,
       hub,
     });
 
-    return await this.lexemeRepository.save(lexemeEntity);
+    return this.lexemeRepository.save(entity);
   }
 
-  async findAll(): Promise<Lexeme[]> {
-    return this.lexemeRepository.find({
-      relations: ['hub'],
-    });
-  }
 
-  async findOne(id: string): Promise<Lexeme> {
-    return this.lexemeRepository.findOne({
+  async findById(id: string): Promise<Lexeme> {
+    const lexeme = await this.lexemeRepository.findOne({
       where: { id },
-      relations: ['hub'],
+      relations: ['hub', 'definitions', 'examples', 'translations'],
     });
+    if (!lexeme) throw new NotFoundException('Lexeme not found');
+    return lexeme;
+  }
+
+  async findByHub(hubId: string): Promise<Lexeme[]> {
+    return this.lexemeRepository.find({
+      where: {
+        hub: {
+          id: hubId,
+        },
+      },
+      relations: ['hub'], 
+      order: { created_at: 'DESC' },
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    const result = await this.lexemeRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException('Lexeme not found');
+    }
   }
 }

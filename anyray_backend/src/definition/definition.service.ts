@@ -1,53 +1,51 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Definition } from './entities/definition.entity';
 import { CreateDefinitionDto } from './dto/create-definition.dto';
+import { UpdateDefinitionDto } from './dto/update-definition.dto';
 import { Lexeme } from '../lexeme/entities/lexeme.entity';
 
 @Injectable()
 export class DefinitionService {
   constructor(
     @InjectRepository(Definition)
-    private defRepo: Repository<Definition>,
+    private readonly repo: Repository<Definition>,
 
     @InjectRepository(Lexeme)
-    private lexemeRepo: Repository<Lexeme>,
+    private readonly lexemeRepo: Repository<Lexeme>,
   ) {}
 
-  async createOrUpdate(dto: CreateDefinitionDto): Promise<Definition> {
+  async create(dto: CreateDefinitionDto): Promise<Definition> {
     const lexeme = await this.lexemeRepo.findOneBy({ id: dto.lexemeId });
-    if (!lexeme) throw new Error('Lexeme not found');
-  
-    const existing = await this.defRepo.findOne({
-      where: {
-        lexeme: { id: dto.lexemeId },
-        source_detail: dto.source_detail,
-      },
-      relations: ['lexeme'],
-    });
-  
-    if (existing) {
-      existing.definition = dto.definition;
-      return this.defRepo.save(existing); // update
-    }
-  
-    const definition = this.defRepo.create({
+    if (!lexeme) throw new NotFoundException('Lexeme not found');
+
+    const entity = this.repo.create({
       definition: dto.definition,
-      source_detail: dto.source_detail,
       lexeme,
     });
-  
-    return this.defRepo.save(definition); // insert
-  } 
+
+    return this.repo.save(entity);
+  }
 
   async findByLexeme(lexemeId: string): Promise<Definition[]> {
-    return this.defRepo.find({
+    return this.repo.find({
       where: { lexeme: { id: lexemeId } },
       relations: ['lexeme'],
       order: { created_at: 'DESC' },
     });
-  }  
+  }
 
+  async update(id: string, dto: UpdateDefinitionDto): Promise<Definition> {
+    const def = await this.repo.findOneBy({ id });
+    if (!def) throw new NotFoundException('Definition not found');
+
+    Object.assign(def, dto);
+    return this.repo.save(def);
+  }
+
+  async delete(id: string): Promise<void> {
+    const result = await this.repo.delete(id);
+    if (result.affected === 0) throw new NotFoundException('Definition not found');
+  }
 }
-

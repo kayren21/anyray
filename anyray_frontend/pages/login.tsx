@@ -35,6 +35,10 @@ export default function Login() {
 
     try {
       const response = await axios.post("http://localhost:3000/auth/login", values);
+      console.log("Full login response:", response.data);
+
+      localStorage.setItem("userId", response.data.id);
+
 
       console.log("Login successful:", response.data);
       router.push("/vocabulary"); // перенаправляем после логина
