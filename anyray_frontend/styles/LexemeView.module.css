@@ -31,6 +31,15 @@
     text-align: center;
   }
 
+  .modalTitleAdd {
+    margin-top: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
   .mainWord {
     font-size: 28px;
     font-weight: 700;
@@ -72,6 +81,24 @@
     border-color: #36dafd;
     box-shadow: 0 0 0 1px rgba(54, 218, 253, 0.3);
   }  
+
+  .inputAdd {
+    width: 90%;
+    padding: 10px 14px;
+    margin: 7px auto 12px auto; 
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 0 0 2px transparent;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    display: block;
+  }
+  
+  .inputAdd:focus {
+    outline: none;
+    border-color: #36dafd;
+    box-shadow: 0 0 0 1px rgba(54, 218, 253, 0.3);
+  }  
   
   .button {
     background-color: #36dafd;
@@ -88,6 +115,27 @@
   .button:hover {
     background-color: #2bcbe0;
   }
+
+  .buttonAddLexeme {
+    background-color: #36dafd;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin-top: 4px;
+    margin: 20px auto 0 auto; 
+    display: block;
+
+    
+  }
+  
+  .buttonAddLexeme:hover {
+    background-color: #2bcbe0;
+  }
+
 
 .sectionHeader {
   display: flex;

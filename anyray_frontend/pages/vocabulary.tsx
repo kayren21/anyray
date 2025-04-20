@@ -5,11 +5,10 @@ import styles from '@/styles/Vocabulary.module.css';
 import { Poppins } from 'next/font/google';
 import { Caveat } from 'next/font/google';
 import LexemeView from './components/lexeme-view';
-
+import LexemeAdd from './components/lexeme-add';
 
 const caveat = Caveat({ subsets: ['latin'], weight: ['500'], variable: '--font-caveat' });
 const poppins = Poppins({ weight: ['400', '600'], subsets: ['latin'], variable: '--font-poppins' });
-
 
 interface Lexeme {
   id: string;
@@ -24,17 +23,18 @@ interface GroupedLexemes {
 const VocabularyPage = () => {
   const [groupedLexemes, setGroupedLexemes] = useState<GroupedLexemes>({});
   const [loading, setLoading] = useState(true);
-  const [openMenuId, setOpenMenuId] = useState<string | null>(null); 
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [selectedLexemeId, setSelectedLexemeId] = useState<string | null>(null);
   const [selectedLexemeText, setSelectedLexemeText] = useState<string | null>(null);
+  const [currentHubId, setCurrentHubId] = useState<string | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
-
-  // opening and closing delete menu on click
+  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       if (!target.closest(`.${styles.wordCard}`)) {
-        setOpenMenuId(null); 
+        setOpenMenuId(null);
       }
     };
     document.addEventListener('click', handleClickOutside);
@@ -47,15 +47,13 @@ const VocabularyPage = () => {
 
     const fetchData = async () => {
       try {
-        // getting current user hub
         const hubRes = await axios.get(`http://localhost:3000/hub/default?userId=${userId}`);
         const hubId = hubRes.data.id;
+        setCurrentHubId(hubId);
 
-        // getting lexemes from this hub
         const lexemesRes = await axios.get(`http://localhost:3000/lexeme/hub/${hubId}`);
         const data: Lexeme[] = lexemesRes.data;
 
-        // group by date
         const grouped = data.reduce((acc, item) => {
           const date = new Date(item.created_at).toLocaleDateString();
           if (!acc[date]) acc[date] = [];
@@ -80,16 +78,18 @@ const VocabularyPage = () => {
       const updated = { ...groupedLexemes };
       updated[date] = updated[date].filter((l) => l.id !== lexeme.id);
       setGroupedLexemes(updated);
-      setOpenMenuId(null); // closing delete menu
+      setOpenMenuId(null);
     } catch (error) {
-      console.error('Ошибка при удалении:', error);
+      console.error('Error deletiting:', error);
     }
   };
 
   return (
     <div className={`${styles.page} ${poppins.variable} ${caveat.variable}`}>
       <nav className={styles.nav}>
-        <Link href="/" className={styles.logoText}>Any<span className={styles.ray}>Ray</span></Link>
+        <Link href="/" className={styles.logoText}>
+          Any<span className={styles.ray}>Ray</span>
+        </Link>
         <Link href="/vocabulary" className={styles.active}>Vocabulary</Link>
         <Link href="/materials">Materials</Link>
         <Link href="/exercises">Exercises</Link>
@@ -99,7 +99,23 @@ const VocabularyPage = () => {
       <main className={styles.content}>
         <div className={styles.header}>
           <h1>Saved words</h1>
-          <button className={styles.addButton}>+ Add Word</button>
+          <button onClick={() => setShowCreateModal(true)} className={styles.addButton}>+ Add Word</button>
+          {showCreateModal && currentHubId && (
+            <LexemeAdd
+              onClose={() => setShowCreateModal(false)}
+              hubId={currentHubId}
+              onLexemeAdded={(newLexeme) => {
+                const date = new Date(newLexeme.created_at).toLocaleDateString();
+                setGroupedLexemes((prev) => {
+                  const updated = { ...prev };
+                  if (!updated[date]) updated[date] = [];
+                  updated[date] = [newLexeme, ...updated[date]];
+                  return updated;
+                });
+              }}
+            />
+          )}
+
         </div>
 
         {loading ? (
@@ -108,47 +124,46 @@ const VocabularyPage = () => {
           <p>No words yet. Start adding!</p>
         ) : (
           Object.entries(groupedLexemes)
-                .filter(([_, lexemes]) => lexemes.length > 0) // showing dates with lexemes only
-                .map(([date, lexemes]) => (
-            <div key={date} className={styles.section}>
-              <h2 className={styles.date}>{date}</h2>
-              <ul className={styles.wordList}>
-                {lexemes.map((lexeme) => (
-                  <li
-                     key={lexeme.id}
-                     className={styles.wordCard}
-                     onClick={(e) => { //allows to open lexeme view on click without triggering delete menu
-                       const target = e.target as HTMLElement;
-                       if (target.closest(`.${styles.menuWrapper}`)) return;
-                       setSelectedLexemeId(lexeme.id);
-                       setSelectedLexemeText(lexeme.lexeme);
-                    }}
-                   >
-                    <div className={styles.wordText}>{lexeme.lexeme}</div>
-                    <div className={styles.menuWrapper}>
-                      <button
-                        className={styles.menuButton}
-                        onClick={(e) => {
-                          e.stopPropagation(); 
-                          setOpenMenuId((prev) => (prev === lexeme.id ? null : lexeme.id));
-                        }}
-                      >
-                        ⋮
-                      </button>
-                      {openMenuId === lexeme.id && (
-                        <div className={styles.menuOptions}>
-                          <button onClick={() => handleDelete(lexeme, date)}>Delete</button>
-                        </div>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
+            .filter(([_, lexemes]) => lexemes.length > 0)
+            .map(([date, lexemes]) => (
+              <div key={date} className={styles.section}>
+                <h2 className={styles.date}>{date}</h2>
+                <ul className={styles.wordList}>
+                  {lexemes.map((lexeme) => (
+                    <li
+                      key={lexeme.id}
+                      className={styles.wordCard}
+                      onClick={(e) => {
+                        const target = e.target as HTMLElement;
+                        if (target.closest(`.${styles.menuWrapper}`)) return;
+                        setSelectedLexemeId(lexeme.id);
+                        setSelectedLexemeText(lexeme.lexeme);
+                      }}
+                    >
+                      <div className={styles.wordText}>{lexeme.lexeme}</div>
+                      <div className={styles.menuWrapper}>
+                        <button
+                          className={styles.menuButton}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenMenuId((prev) => (prev === lexeme.id ? null : lexeme.id));
+                          }}
+                        >
+                          ⋮
+                        </button>
+                        {openMenuId === lexeme.id && (
+                          <div className={styles.menuOptions}>
+                            <button onClick={() => handleDelete(lexeme, date)}>Delete</button>
+                          </div>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
         )}
 
-        {/* LexemeView component for showing lexeme details */}
         {selectedLexemeId && selectedLexemeText && (
           <LexemeView
             lexemeId={selectedLexemeId}
