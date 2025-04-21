@@ -27,13 +27,10 @@
   text-decoration: none;
 }
 
-
 .ray {
   display: inline-block;
   color: #36dafd; 
 }
-
-
 
 .nav a:not(:first-child) {
   text-decoration: none;
@@ -178,31 +175,3 @@
   color: red;
   cursor: pointer;
 }
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 

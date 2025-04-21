@@ -22,42 +22,44 @@ export default function CreateHub() {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [targetLanguage, setTargetLanguage] = useState('');
   const [level, setLevel] = useState('');
+  const [userId, setUserId] = useState<string | null>(null);
   const router = useRouter();
-  const userId = router.query.user as string;
 
   useEffect(() => {
-    axios.get('http://localhost:3000/languages').then((res) => {
-      setLanguages(res.data);
-    });
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) setUserId(storedUserId);
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/languages')
+      .then((res) => setLanguages(res.data))
+      .catch((err) => console.error('Error fetching languages:', err));
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-    const userId = router.query.user as string;
+
     if (!userId) {
-      alert('User ID is missing. Please try refreshing the page.');
+      alert('User ID is missing. Please refresh or log in again.');
       return;
     }
-  
-    console.log('Creating hub for user:', userId);
-  
+
     try {
-      await axios.post('http://localhost:3000/hub', {
+      const response = await axios.post('http://localhost:3000/hub', {
         user_id: userId,
         target_language: targetLanguage,
         language_level: level,
       });
-  
-      console.log('Redirecting to /vocabulary...');
+
+      const hubId = response.data.id;
+      localStorage.setItem('hubId', hubId); // сохранить hub ID
+
       router.push('/vocabulary');
     } catch (error) {
       console.error('Error creating hub:', error);
       alert('Something went wrong while creating your hub.');
     }
   };
-  
-
 
   return (
     <div className={styles.formContainer}>
@@ -98,12 +100,13 @@ export default function CreateHub() {
             </select>
           </div>
 
-          <button type="submit" className={styles.button}>Start Learning</button>
+          <button type="submit" className={styles.button}>
+            Start Learning
+          </button>
         </form>
         <p className={styles.loginFooter}>
-         You’ll be able to manage and add more hubs later
+          You’ll be able to manage and add more hubs later
         </p>
-
       </div>
     </div>
   );

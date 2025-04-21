@@ -42,7 +42,8 @@ export class Hub {
   @Column({
     type: 'enum',
     enum: LanguageLevel,
-    nullable: false,
+    nullable: false, 
+    name: 'language_level'
   })
   languageLevel: LanguageLevel;
 

@@ -36,7 +36,10 @@ export default function Signup() {
       try {
         const res = await axios.post('http://localhost:3000/auth/signup', values);
         const userId = res.data.id;
-        router.push(`/hub-create?user=${userId}`);
+        
+        localStorage.setItem('userId', userId); // Сохраняем ID
+        router.push('/hub-create');             // Переходим БЕЗ query
+        
       } catch (error: any) {
         alert(error.response?.data?.message || 'Registration failed');
       }
