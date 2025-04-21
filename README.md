@@ -26,3 +26,14 @@
 | Deployment    | TBD                         |
 
 ---
+
+## Third-party APIs Used
+
+📘 MyMemory Translation API
+Purpose: Translate single words or phrases 
+https://api.mymemory.translated.net/get?q=love%20me%20like%20you%20do&langpair=en|ru
+
+📘 Dictionary API
+Purpose: Fetch definitions, phonetics, part of speech, audio, and examples for single words
+https://api.dictionaryapi.dev/api/v2/entries/en/monkey
+
