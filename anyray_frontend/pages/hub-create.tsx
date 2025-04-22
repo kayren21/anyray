@@ -51,8 +51,9 @@ export default function CreateHub() {
         language_level: level,
       });
 
-      const hubId = response.data.id;
-      localStorage.setItem('hubId', hubId); // сохранить hub ID
+      const hub = response.data;
+      localStorage.setItem('hub', JSON.stringify(hub)); // сохраним весь объект хаба
+
 
       router.push('/vocabulary');
     } catch (error) {

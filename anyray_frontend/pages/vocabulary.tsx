@@ -6,6 +6,7 @@ import { Poppins } from 'next/font/google';
 import { Caveat } from 'next/font/google';
 import LexemeView from './components/lexeme-view';
 import LexemeAdd from './components/lexeme-add';
+import Navbar from './components/navigation';
 
 const caveat = Caveat({ subsets: ['latin'], weight: ['500'], variable: '--font-caveat' });
 const poppins = Poppins({ weight: ['400', '600'], subsets: ['latin'], variable: '--font-poppins' });
@@ -86,15 +87,7 @@ const VocabularyPage = () => {
 
   return (
     <div className={`${styles.page} ${poppins.variable} ${caveat.variable}`}>
-      <nav className={styles.nav}>
-        <Link href="/" className={styles.logoText}>
-          Any<span className={styles.ray}>Ray</span>
-        </Link>
-        <Link href="/vocabulary" className={styles.active}>Vocabulary</Link>
-        <Link href="/materials">Materials</Link>
-        <Link href="/exercises">Exercises</Link>
-        <Link href="/profile">Profile</Link>
-      </nav>
+      <Navbar />
 
       <main className={styles.content}>
         <div className={styles.header}>

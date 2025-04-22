@@ -1,4 +1,4 @@
-// src/materials/dto/create-material.dto.ts
+
 import {
     IsEnum,
     IsNotEmpty,
@@ -25,6 +25,7 @@ import {
     description?: string;
   
     @IsEnum(MaterialType)
+    @IsOptional()
     material_type: MaterialType;
   }
   

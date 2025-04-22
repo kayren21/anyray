@@ -1,0 +1,45 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 20px 200px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-wrap: wrap;
+  }
+  
+  .logoText {
+    font-family: var(--font-caveat);
+    font-size: 42px;
+    font-weight: 500;
+    color: #222;
+    margin-right: auto;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  .ray {
+    display: inline-block;
+    color: #36dafd; 
+  }
+  
+  .nav a:not(:first-child) {
+    text-decoration: none;
+    color: #444;
+    margin-left: 24px;
+    font-weight: 500;
+    font-size: 18px;
+    transition: color 0.2s ease, border-bottom 0.2s ease;
+    padding-bottom: 2px;
+  }
+  
+  .nav a:not(:first-child):hover {
+    border-bottom: 2px solid #fbddb8;
+  }
+  
+  .active {
+    border-bottom: 2px solid #fbddb8;
+  }

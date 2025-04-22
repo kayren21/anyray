@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from '@/styles/LexemeAdd.module.css';
 import axios from 'axios';
 import { fetchSingleWordData } from '@/utils/fetch-single-word';
-import { translatePhrase } from '@/utils/fetch_phrase';
+import { translatePhrase } from '@/utils/fetch-phrase';
 import { useEffect } from 'react';
 
 

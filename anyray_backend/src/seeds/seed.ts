@@ -1,12 +1,14 @@
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
+
 import { Country } from '../countries/entities/country.entity';
 import { Language } from '../languages/entities/language.entity';
-import { countries } from './data/countries.data';
-import { languages } from './data/languages.data';
-import { User } from '../users/entities/user.entity';
 import { Material } from '../materials/entities/material.entity';
 
+import { countries } from './data/countries.data';
+import { languages } from './data/languages.data';
+import { materials } from './data/materials.data';
+import { User } from '../users/entities/user.entity';
 
 dotenv.config();
 
@@ -23,8 +25,11 @@ const AppDataSource = new DataSource({
 
 async function seed() {
   await AppDataSource.initialize();
+
   const countryRepo = AppDataSource.getRepository(Country);
   const languageRepo = AppDataSource.getRepository(Language);
+  const materialRepo = AppDataSource.getRepository(Material);
+
 
   for (const country of countries) {
     const exists = await countryRepo.findOne({ where: { code: country.code } });
@@ -36,7 +41,26 @@ async function seed() {
     if (!exists) await languageRepo.save(language);
   }
 
-  console.log('Countries & Languages seeded');
+  const allLanguages = await languageRepo.find();
+
+  for (const material of materials) {
+    const language = allLanguages.find((lang) => lang.code === material.languageCode);
+    if (!language) {
+      console.warn(`Language not found for code: ${material.languageCode}`);
+      continue;
+    }
+  
+    const exists = await materialRepo.findOne({ where: { link: material.link } });
+    if (!exists) {
+      await materialRepo.save({
+        ...material,
+        language,
+      });
+    }
+  }
+  
+
+  console.log('Countries, Languages and Materials seeded');
   await AppDataSource.destroy();
 }
 

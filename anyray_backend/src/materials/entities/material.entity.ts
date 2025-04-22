@@ -5,7 +5,6 @@ import {
     Column,
     ManyToOne,
     CreateDateColumn,
-    UpdateDateColumn,
   } from 'typeorm';
   
   import { Language } from '../../languages/entities/language.entity';
@@ -14,12 +13,16 @@ import {
     BEGINNER = 'beginner',
     INTERMEDIATE = 'intermediate',
     ADVANCED = 'advanced',
+    ALL = 'all',
   }
   
   export enum MaterialType {
     VIDEO = 'video',
     ARTICLE = 'article',
     PODCAST = 'podcast',
+    BOOK = 'book',
+    OTHER = 'other',
+    NEWS = 'news',
   }
   
   @Entity('materials')
@@ -39,13 +42,11 @@ import {
     @Column({ type: 'text', nullable: true })
     description: string;
   
-    @Column({ type: 'enum', enum: MaterialType })
+    @Column({ type: 'enum', enum: MaterialType, nullable: true  })
     material_type: MaterialType;
   
-    @CreateDateColumn()
-    created_at: Date;
-  
-    @UpdateDateColumn()
-    updated_at: Date;
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
   }
   

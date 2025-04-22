@@ -3,9 +3,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateMaterialDto } from './dto/create-material.dto';
-import { UpdateMaterialDto } from './dto/update-material.dto';
 import { Language } from '../languages/entities/language.entity';
 import { Material } from '../materials/entities/material.entity';
+import { LanguageLevel } from './entities/material.entity';
+
 
 @Injectable()
 export class MaterialsService {
@@ -37,16 +38,32 @@ export class MaterialsService {
     return this.materialRepository.findOne({ where: { id }, relations: ['language'] });
   }
 
-  async update(id: string, dto: UpdateMaterialDto): Promise<Material> {
-    const material = await this.materialRepository.findOneBy({ id });
-    if (!material) throw new NotFoundException('Material not found');
-
-    Object.assign(material, dto);
-    return this.materialRepository.save(material);
-  }
-
   async remove(id: string): Promise<void> {
     await this.materialRepository.delete(id);
   }
+
+  async findByLanguageAndLevel(languageId: string, level: LanguageLevel): Promise<Material[]> {
+    return this.materialRepository.find({
+      where: {
+        language: { id: languageId },
+        language_level: level,
+      },
+      relations: ['language'],
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+  }
+
+  async findByLanguage(languageId: string): Promise<Material[]> {
+    return this.materialRepository.find({
+      where: {
+        language: { id: languageId },
+      },
+      relations: ['language'],
+    });
+  }
+  
+  
 }
 
