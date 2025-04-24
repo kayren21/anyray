@@ -41,7 +41,6 @@
 
 .addButton:hover {
   transform: translateY(-1px);
-  background-color: #2bcbe0;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 

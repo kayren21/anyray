@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -88,24 +88,40 @@ export class UsersService {
     await this.usersRepository.remove(user);
   }
 
-  async update(id: string, updateDto: UpdateUserDto): Promise<User> {
-    const user = await this.usersRepository.findOneByOrFail({ id });
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.usersRepository.findOneBy({ id });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
   
-    if (updateDto.homeLandId) {
-      const country = await this.countriesRepository.findOneByOrFail({ id: updateDto.homeLandId });
+    if (updateUserDto.password) {
+      if (!updateUserDto.currentPassword) {
+        throw new BadRequestException('Current password is required to change the password');
+      }
+  
+      if (updateUserDto.currentPassword !== user.password) {
+        throw new BadRequestException('Current password is incorrect');
+      }
+  
+      user.password = updateUserDto.password;
+    }
+  
+    user.firstName = updateUserDto.firstName ?? user.firstName;
+    user.lastName = updateUserDto.lastName ?? user.lastName;
+    user.gender = updateUserDto.gender ?? user.gender;
+    user.dob = updateUserDto.dob ?? user.dob;
+  
+    if (updateUserDto.translationLanguageId) {
+      const lang = await this.languagesRepository.findOneBy({ id: updateUserDto.translationLanguageId });
+      if (!lang) throw new NotFoundException('Translation language not found');
+      user.translationLanguage = lang;
+    }
+  
+    if (updateUserDto.homeLandId) {
+      const country = await this.countriesRepository.findOneBy({ id: updateUserDto.homeLandId });
+      if (!country) throw new NotFoundException('Country not found');
       user.homeLandId = country;
     }
-  
-    if (updateDto.translationLanguageId) {
-      const language = await this.languagesRepository.findOneByOrFail({ id: updateDto.translationLanguageId });
-      user.translationLanguage = language;
-    }
-  
-
-    if (updateDto.firstName !== undefined) user.firstName = updateDto.firstName;
-    if (updateDto.lastName !== undefined) user.lastName = updateDto.lastName;
-    if (updateDto.gender !== undefined) user.gender = updateDto.gender;
-    if (updateDto.dob !== undefined) user.dob = updateDto.dob;
   
     return this.usersRepository.save(user);
   }

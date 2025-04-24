@@ -1,0 +1,118 @@
+.page {
+    background-color: #f9f9fb;
+    min-height: 100vh;
+    font-family: var(--font-poppins);
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  .title {
+    font-family: var(--font-caveat);
+    font-size: 25.4px;
+    color: #666;
+    font-weight: 400;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .createButton {
+    background: linear-gradient(to right, #36dafd, #64e1dc);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto 30px;
+  }
+  
+  .createButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  }
+  
+  .hubList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .hubItem {
+    background-color: white;
+    border: 1px solid #e3e3e3;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .hubInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 15px;
+    color: #222;
+  }
+  
+  .defaultLabel {
+    background-color: #36dafd;
+    color: white;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-top: 4px;
+    align-self: flex-start;
+    font-weight: 500;
+  }
+  
+  .useButton {
+    background-color: #e8f8fb;
+    border: 1px solid #36dafd;
+    color: #36dafd;
+    font-size: 14px;
+    padding: 8px 14px;
+    font-weight: 520;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .useButton:hover {
+    background-color: #d3f3f9;
+  }
+  
+  .levelLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .levelSelect {
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    transition: border-color 0.2s ease;
+  }
+  
+  .levelSelect:focus {
+    border-color: #36dafd;
+    outline: none;
+  }
+  

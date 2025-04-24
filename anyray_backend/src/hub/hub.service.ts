@@ -59,4 +59,58 @@ export class HubService {
       .andWhere('user.id = :userId', { userId })
       .getOne();
   }  
+
+  async setDefaultHub(hubId: string): Promise<void> {
+    const hub = await this.hubRepository.findOne({
+      where: { id: hubId },
+      relations: ['user'],
+    });
+  
+    if (!hub) throw new Error('Hub not found');
+  
+    const userId = hub.user.id;
+  
+    // Сбросить у всех хабов этого пользователя isDefault = false
+    await this.hubRepository
+      .createQueryBuilder()
+      .update(Hub)
+      .set({ isDefault: false })
+      .where('user_id = :userId', { userId })
+      .execute();
+  
+    // Установить isDefault = true у выбранного хаба
+    await this.hubRepository
+      .createQueryBuilder()
+      .update(Hub)
+      .set({ isDefault: true })
+      .where('id = :hubId', { hubId })
+      .execute();
+  }
+
+  async findAllByUserId(userId: string): Promise<Hub[]> {
+    return this.hubRepository.find({
+      where: { user: { id: userId } },
+      relations: ['targetLanguage'],
+      order: { createdAt: 'DESC' },
+    });
+  }
+
+  async updateLevel(hubId: string, level: string): Promise<Hub> {
+    const hub = await this.hubRepository.findOneByOrFail({ id: hubId });
+    hub.languageLevel = level as any;
+    return this.hubRepository.save(hub);
+  }
+
+  async findByIdWithRelations(id: string): Promise<Hub> {
+    return this.hubRepository.findOne({
+      where: { id },
+      relations: ['targetLanguage', 'user'],
+    });
+  }
+  
+
+
+  
+  
+  
 }

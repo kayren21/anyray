@@ -106,7 +106,7 @@ export default function CreateHub() {
           </button>
         </form>
         <p className={styles.loginFooter}>
-          You’ll be able to manage and add more hubs later
+          You can always add or switch hubs later
         </p>
       </div>
     </div>

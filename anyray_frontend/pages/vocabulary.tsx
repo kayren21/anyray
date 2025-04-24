@@ -44,13 +44,32 @@ const VocabularyPage = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
-    if (!userId) return;
+  if (!userId) return;
 
-    const fetchData = async () => {
-      try {
+  const fetchData = async () => {
+    try {
+      const hubRaw = localStorage.getItem('hub');
+      let hubId: string | null = null;
+
+      if (hubRaw) {
+        try {
+          const hub = JSON.parse(hubRaw);
+          hubId = hub?.id || null;
+        } catch (err) {
+          console.warn('Invalid hub JSON:', err);
+        }
+      }
+
+      // Если нет хаба в localStorage — берем дефолтный
+      if (!hubId) {
         const hubRes = await axios.get(`http://localhost:3000/hub/default?userId=${userId}`);
-        const hubId = hubRes.data.id;
-        setCurrentHubId(hubId);
+        hubId = hubRes.data.id;
+        localStorage.setItem('hub', JSON.stringify(hubRes.data)); // обновим LS
+      }
+
+      if (!hubId) return;
+
+      setCurrentHubId(hubId);
 
         const lexemesRes = await axios.get(`http://localhost:3000/lexeme/hub/${hubId}`);
         const data: Lexeme[] = lexemesRes.data;

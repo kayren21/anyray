@@ -1,0 +1,140 @@
+.page {
+  background-color: #f9f9fb;
+  min-height: 100vh;
+  font-family: var(--font-poppins);
+}
+
+.content {
+  max-width: 900px;
+  margin: 10px auto 40px;
+  padding: 0px 20px 40px;
+}
+
+.profileCard {
+  max-height: 800px;
+  border-radius: 20px;
+  padding: 32px 28px;
+  transition: all 0.3s ease-in-out;
+  max-width: 600px;
+  margin: 0 auto;
+  color: #222;
+  backdrop-filter: blur(10px);
+}
+
+.profileCard h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profileForm label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+}
+
+.profileForm input,
+.profileForm select {
+  padding: 12px 14px;
+  font-size: 15px;
+  font-weight: 400;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.profileForm input:focus,
+.profileForm select:focus {
+  border-color: #36dafd;
+  outline: none;
+  background-color: white;
+}
+
+.profileForm input:disabled,
+.profileForm select:disabled {
+  background-color: rgba(255, 255, 255, 0.8); 
+  color: #555;
+  opacity: 1; 
+  cursor: default;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 180px;
+  min-height: 40px;
+}
+
+.editButton,
+.saveButton {
+  background-color: #36dafd;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 500;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.editButton:hover,
+.saveButton:hover {
+  background-color: #25c5e6;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+  min-height: 50px;
+}
+
+.headerRow h2 {
+  font-size: 24px;
+  color: #222;
+  margin: 0;
+}
+
+.selectNoArrow {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none;
+  background-color: white;
+  background-image: none;
+  padding-right: 10px;
+}
+
+.savedText {
+  margin-left: 10px;
+  color: #36dafd;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  width: 5px; 
+  display: inline-block;
+}
+
+.visible {
+  opacity: 1;
+}
+
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}

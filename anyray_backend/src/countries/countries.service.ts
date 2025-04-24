@@ -15,4 +15,9 @@ export class CountriesService {
     const newCountry = this.countryRepository.create(createCountryDto);
     return await this.countryRepository.save(newCountry);
   }
+
+  async findAll(): Promise<Country[]> {
+    return await this.countryRepository.find();
+  }
+  
 }

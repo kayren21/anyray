@@ -24,4 +24,13 @@ export class UpdateUserDto {
   @IsOptional()
   @IsUUID()
   translationLanguageId?: string;
+
+  @IsOptional()
+  @IsString()
+  currentPassword?: string;
+
+  @IsOptional()
+  @IsString()
+  password?: string;
+
 }

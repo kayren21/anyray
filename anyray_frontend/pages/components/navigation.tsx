@@ -20,6 +20,7 @@ const Navbar = () => {
         <Link href="/vocabulary" className={router.pathname === '/vocabulary' ? styles.active : ''}>Vocabulary</Link>
         <Link href="/materials"  className={router.pathname === '/materials' ? styles.active : ''}>Materials</Link>
         <Link href="/exercises"  className={router.pathname === '/exercises' ? styles.active : ''}>Exercises</Link>
+        <Link href="/hubs" className={router.pathname === '/hubs' ? styles.active : ''}>Hubs</Link>
         <Link href="/profile" className={router.pathname === '/profile' ? styles.active : ''}>Profile</Link>
       </nav>
     );

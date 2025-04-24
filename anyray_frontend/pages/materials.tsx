@@ -18,17 +18,26 @@ interface Material {
 }
 
 export default function MaterialsPage() {
+  // All materialsfrom server
   const [materials, setMaterials] = useState<Material[]>([]);
+  // Filtered materials based on selected level
   const [filtered, setFiltered] = useState<Material[]>([]);
+  // on Default all
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
 
   useEffect(() => {
     const fetchMaterials = async () => {
       const langId = await getTargetLanguageId();
-      if (!langId) return;
+
+      console.log('Target Language ID:', langId);
+      if (!langId) {
+        console.warn(' No target language ID found.');
+        return;
+      }
 
       try {
         const res = await axios.get(`http://localhost:3000/materials/by-language/${langId}`);
+        console.log(' Materials received:', res.data); 
         setMaterials(res.data);
         setFiltered(res.data);
       } catch (err) {
@@ -86,3 +95,4 @@ export default function MaterialsPage() {
     </div>
   );
 }
+
