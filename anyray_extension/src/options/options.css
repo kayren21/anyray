@@ -1,0 +1,28 @@
+.options-container {
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .hub-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .save-button {
+    margin-top: 25px;
+    padding: 10px 20px;
+    background-color: #36dafd;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
