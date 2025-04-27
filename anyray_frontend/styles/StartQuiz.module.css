@@ -1,0 +1,128 @@
+/* Оверлей модалки */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  /* Контент модалки */
+  .modalContent {
+    background: white;
+    padding: 50px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 500px;
+    font-family: var(--font-poppins);
+  }
+  
+  /* Заголовок */
+  .modalContent h2 {
+    color: #555555; 
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  
+  /* Описание вопроса */
+  .modalContent p {
+    color: #777777; 
+    margin: 10px 0 20px;
+    font-size: 18px;
+  }
+  
+  /* Стартовая кнопка и кнопка Next */
+  .startButton,
+  .nextButton {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #36dafd, #fbddb8); 
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  /* При наведении на кнопки */
+  .startButton:hover,
+  .nextButton:hover {
+    background: linear-gradient(120deg, #4285F4, #64e1dc); /* немного другой градиент */
+  }
+  
+  /* Ошибка (если вдруг ошибка) */
+  .errorMessage {
+    margin-top: 20px;
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  /* Контейнер для вариантов ответа */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  
+  /* Кнопка варианта ответа */
+  .optionButton {
+    padding: 14px 20px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 2px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    color: #333
+  }
+  
+  /* При наведении на вариант ответа */
+  .optionButton:hover {
+    background-color: #f9f9f9;
+    color: #333
+  }
+  
+  /* Стиль правильного ответа */
+  .optionButtonCorrect {
+    padding: 14px 20px;
+    font-size: 16px;
+    border-radius: 12px;
+    text-align: left;
+    background-color: #d4f9d4; 
+    border: 2px solid #2ecc71; 
+    color: #2d6a4f; 
+  }
+  
+  /* Стиль неправильного ответа */
+  .optionButtonWrong {
+    padding: 14px 20px;
+    font-size: 16px;
+    border-radius: 12px;
+    text-align: left;
+    background-color: #ffd6d6; 
+    border: 2px solid #e74c3c; 
+    color: #a4161a; 
+  }
+  
+  /* Стиль кнопки Next когда disabled */
+  .nextButton:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+  }
+
+  /* Текст поздравления */
+  .finishedMessage p {
+    color: #555555;
+    font-size: 22px;
+  }
+  

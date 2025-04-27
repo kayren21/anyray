@@ -1,4 +1,3 @@
-// hub.controller.ts
 import { Controller, Post, Body, Get, Query, Param, Patch } from '@nestjs/common';
 import { HubService } from './hub.service';
 import { CreateHubDto } from './dto/create-hub.dto';

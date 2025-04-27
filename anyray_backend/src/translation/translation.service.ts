@@ -5,15 +5,19 @@ import { Translation } from './entities/translation.entity';
 import { CreateTranslationDto } from './dto/create-translation.dto';
 import { UpdateTranslationDto } from './dto/update-translation.dto';
 import { Lexeme } from '../lexeme/entities/lexeme.entity';
+import { ExerciseService } from 'src/exercise/exercise.service';
 
 @Injectable()
 export class TranslationService {
   constructor(
     @InjectRepository(Translation)
     private repo: Repository<Translation>,
+    private readonly exerciseService: ExerciseService, 
 
     @InjectRepository(Lexeme)
     private lexemeRepo: Repository<Lexeme>,
+
+
   ) {}
 
   async create(dto: CreateTranslationDto): Promise<Translation> {
@@ -23,11 +27,16 @@ export class TranslationService {
     const newTranslation = this.repo.create({
       translation: dto.translation,
       lexeme,
+      
     });
 
-    return this.repo.save(newTranslation);
-  }
+    const savedTranslation = await this.repo.save(newTranslation);
 
+    // Generate exercise if it doesn't exist
+    await this.exerciseService.generateTranslationExercise(dto.lexemeId);
+  
+    return savedTranslation;
+  }
 
   async findByLexeme(lexemeId: string): Promise<Translation[]> {
     return this.repo.find({

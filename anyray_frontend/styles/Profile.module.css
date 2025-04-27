@@ -138,3 +138,20 @@
   85% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+.aboutLinkContainer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.aboutLink {
+  font-size: 15px;
+  color: #36dafd;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.aboutLink:hover {
+  color: #fbddb8;
+}

@@ -4,6 +4,7 @@ import {
     Column,
     ManyToOne,
     CreateDateColumn,
+    JoinColumn,
   } from 'typeorm';
 
   import { Lexeme } from '../../lexeme/entities/lexeme.entity';
@@ -21,6 +22,7 @@ import {
     source_detail: string; 
   
     @ManyToOne(() => Lexeme, (lexeme) => lexeme.definitions, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'lexeme_id' })
     lexeme: Lexeme;
   
     @CreateDateColumn()

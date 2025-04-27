@@ -1,0 +1,114 @@
+.page {
+    background-color: #f9f9fb;
+    min-height: 100vh;
+    font-family: var(--font-poppins);
+  }
+  
+  .content {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px 40px;
+  }
+  
+  /* Секция с обычным белым фоном */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+    text-align: center;
+  }
+  
+  /* Секция с графиком — с градиентным фоном */
+  .sectionChart {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+    text-align: center;
+  }
+  
+  /* Заголовки секций */
+  .sectionTitle {
+    font-size: 24px;
+    margin-bottom: 18px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #444; 
+  }
+  
+  /* Обычный текст */
+  .statItem {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #444;
+  }
+
+  .statItemNote {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+
+  }
+  
+  /* Текст-пояснение */
+  .statTip {
+    font-size: 14px;
+    color: #777;
+    margin-top: 8px;
+  }
+  
+  /* Кнопка */
+  .quizButton {
+    padding: 12px 20px;
+    background: linear-gradient(to right, #36dafd, #64e1dc);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 5px;
+  }
+  
+  .quizButton:hover:enabled {
+    background-color: #2bbbe0;
+  }
+  
+  .quizButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+
+  .noData {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    margin-top: 20px;
+  }
+  
+
+  .chartCaption {
+    font-size: 16px;
+    color: #444;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .chart {
+    margin: 0 auto
+
+  }
+  
+  .chartTitle {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+    margin-left: 40px;
+  }
+  

@@ -12,6 +12,7 @@ import { DefinitionModule } from './definition/definition.module';
 import { AuthModule } from './auth/auth.module';
 import { ExampleModule } from './example/example.module';
 import { TranslationModule } from './translation/translation.module';
+import { ExerciseModule } from './exercise/exercise.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { TranslationModule } from './translation/translation.module';
     AuthModule,
     ExampleModule,
     TranslationModule,
+    ExerciseModule,
   ],
   controllers: [],
   providers: [],

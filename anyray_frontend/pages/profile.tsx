@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
+import Link from 'next/link';
 
 const caveat = Caveat({ subsets: ['latin'], weight: ['500'], variable: '--font-caveat' });
 const poppins = Poppins({ weight: ['400', '600'], subsets: ['latin'], variable: '--font-poppins' });
@@ -290,13 +291,21 @@ export default function ProfilePage() {
                       placeholder="Leave empty if not changing"
                     />
                   </label>
+
                 </>
               )}
             </form>
+            
+      <div className={styles.aboutLinkContainer}>
+        <Link href="/about" className={styles.aboutLink}>
+           Learn how spaced repetition works
+        </Link>
+      </div>
           </div>
         ) : (
           <p>Profile not found.</p>
         )}
+
       </main>
     </div>
   );
