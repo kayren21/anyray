@@ -3,10 +3,7 @@ import {
   Post,
   Body,
   Param,
-  Patch,
   Get,
-  Query,
-  BadRequestException,
 } from '@nestjs/common';
 import { ExerciseService } from './exercise.service';
 import { CreateExerciseDto } from './dto/create-exercise.dto';

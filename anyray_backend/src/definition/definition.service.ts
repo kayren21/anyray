@@ -23,21 +23,12 @@ export class DefinitionService {
     const lexeme = await this.lexemeRepo.findOneBy({ id: dto.lexemeId });
     if (!lexeme) throw new NotFoundException('Lexeme not found');
 
-    const entity = this.repo.create({
+    const newDefinition= this.repo.create({
       definition: dto.definition,
       lexeme,
     });
 
-    const savedDefinition = await this.repo.save(entity);
-
-    // Generate exercise if it doesn't exist
-    try {
-      await this.exerciseService.generateDefinitionExercise(dto.lexemeId);
-    } catch (error) {
-      console.warn(`Could not generate definition exercise: ${error.message}`);
-    }
-
-    return savedDefinition;
+    return this.repo.save(newDefinition); 
   }
 
 

@@ -112,7 +112,6 @@ export class ExerciseService {
     return { created, skipped };
   }
 
-  
 
   async createExercise(lexemeId: string, type: ExerciseType): Promise<Exercise> {
     const lexeme = await this.lexemeRepo.findOneByOrFail({ id: lexemeId });
@@ -121,6 +120,7 @@ export class ExerciseService {
   }
 
   async generateQuizzesByLexeme(lexemeId: string) {
+    await this.ensureExercisesForLexeme(lexemeId);
     const exercises = await this.exerciseRepo.find({
       where: { lexeme: { id: lexemeId } },
       relations: ['lexeme', 'lexeme.hub'],
@@ -213,6 +213,25 @@ export class ExerciseService {
   
     return quizzes;
   }
+
+  async ensureExercisesForLexeme(lexemeId: string) {
+    const exercises = await this.exerciseRepo.find({
+      where: { lexeme: { id: lexemeId } },
+    });
   
+    if (exercises.length === 0) {
+      try {
+        await this.generateTranslationExercise(lexemeId);
+      } catch (error) {
+        console.warn(`Cannot generate translation exercise for ${lexemeId}: ${error.message}`);
+      }
+  
+      try {
+        await this.generateDefinitionExercise(lexemeId);
+      } catch (error) {
+        console.warn(`Cannot generate definition exercise for ${lexemeId}: ${error.message}`);
+      }
+    }
+  }
   
 }

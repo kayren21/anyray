@@ -133,7 +133,7 @@ export enum ExerciseType {
           }
       
           if (!questions.length) {
-            setQuizError('Failed to generate quiz.');
+            setQuizError('No available questions. Please add more translations or definitions to your words!');
             setLoadingQuiz(false);
             return;
           }
@@ -248,7 +248,7 @@ export enum ExerciseType {
                 </div>
               ) : (
                 <div className={styles.noData}>
-                  <p>✨ No mastered words yet.</p>
+                  <p>No mastered words yet</p>
                   <p className={styles.statTip}>
                     Start adding words and complete their definitions and examples to unlock exercise generation!
                   </p>

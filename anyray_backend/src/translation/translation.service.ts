@@ -23,20 +23,15 @@ export class TranslationService {
   async create(dto: CreateTranslationDto): Promise<Translation> {
     const lexeme = await this.lexemeRepo.findOneBy({ id: dto.lexemeId });
     if (!lexeme) throw new NotFoundException('Lexeme not found');
-
+  
     const newTranslation = this.repo.create({
       translation: dto.translation,
       lexeme,
-      
     });
-
-    const savedTranslation = await this.repo.save(newTranslation);
-
-    // Generate exercise if it doesn't exist
-    await this.exerciseService.generateTranslationExercise(dto.lexemeId);
   
-    return savedTranslation;
+    return this.repo.save(newTranslation); 
   }
+  
 
   async findByLexeme(lexemeId: string): Promise<Translation[]> {
     return this.repo.find({
