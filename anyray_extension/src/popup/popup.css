@@ -1,8 +1,18 @@
 .popup {
     padding: 20px;
+    border-radius: 26px;
     width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     font-family: 'Poppins', sans-serif;
     text-align: center;
+    transition: all 0.3s ease;
+    background-color: linear-gradient(#f3f4f6, #e0e7ef)
+  }
+  
+  .popup-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
   }
   
   .popup-title {
@@ -10,19 +20,37 @@
     font-weight: bold;
     color: #36dafd;
     margin-bottom: 15px;
+    text-transform: capitalize;
   }
   
   .popup-instructions {
-    text-align: left;
-    margin: 10px 0;
-    padding-left: 20px;
-    font-size: 14px;
+    margin-top: 10px;
+    padding-left: 0;
+    font-size: 15px;
     color: #333;
+    list-style: none;
+    font-weight: 600px;
+  }
+  
+  .popup-instructions li {
+    margin: 6px 0;
+  }
+  
+  .popup-arrow {
+    color: #36dafd; 
+    font-size: 16px;
+    font-weight: bold;
   }
   
   .popup-note {
-    margin-top: 15px;
-    font-size: 12px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #888;
+  }
+
+  .popup-note_ {
+    margin-top: 0px;
+    font-size: 13px;
     color: #888;
   }
   
