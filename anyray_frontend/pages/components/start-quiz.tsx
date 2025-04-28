@@ -10,7 +10,7 @@ interface Props {
   errorMessage?: string | null;
   refetchTodayExercises: () => void;
 }
-
+// functional components takes props (isOppen, onClose и тд) as an argument and returns a React element
 const StartQuiz: React.FC<Props> = ({ isOpen, onClose, questions, errorMessage, refetchTodayExercises }) => {
   const [started, setStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);

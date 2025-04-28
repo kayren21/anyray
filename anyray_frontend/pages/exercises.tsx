@@ -33,7 +33,7 @@ export enum ExerciseType {
     created_at: string;
   }
   
-
+  // for shwing the structure
   interface Exercise {
     id: string;
     type: ExerciseType;
@@ -90,7 +90,7 @@ export enum ExerciseType {
     const [loadingQuiz, setLoadingQuiz] = useState(false);
 
 
-  
+  //  Takes hub from local storage of the browser
     const getHub = () => {
       try {
         const hubRaw = localStorage.getItem('hub');
@@ -99,7 +99,7 @@ export enum ExerciseType {
         return null;
       }
     };
-
+    // Function to start a quiz
     const handleStartQuiz = async () => {
         try {
           setLoadingQuiz(true);
@@ -147,7 +147,7 @@ export enum ExerciseType {
           setLoadingQuiz(false);
         }
       };
-  
+    //function to show stats when openning the page
     useEffect(() => {
       const hub = getHub();
       if (!hub?.id) return;
@@ -181,6 +181,7 @@ export enum ExerciseType {
         setTodayExercises(reviewRes.data);
       };
   
+      //page rendoring
     if (loading) return <div className="page">Loading...</div>;
   
     const hub = getHub();
@@ -190,7 +191,8 @@ export enum ExerciseType {
       <div className={`${styles.page} ${poppins.variable} ${caveat.variable}`}>
         <Navbar />
         <main className={styles.content}>
-          
+           
+          //section for prohress / conditional rendering 
           {stats && (
             <div className={styles.section}>
               <h2 className={styles.sectionTitle}>Your Progress Overview</h2>
@@ -209,7 +211,7 @@ export enum ExerciseType {
                   </p>
                   <ResponsiveContainer width="100%" height={250} >
                   <LineChart 
-                            data={stats.masteredWordsByWeek}
+                            data={[...stats.masteredWordsByWeek].sort((a, b) => new Date(a.week).getTime() - new Date(b.week).getTime())}
                              margin={{ top: 10, right: 30, left: 30, bottom: 20 }} 
                   >
                       <CartesianGrid strokeDasharray="3 3" />
@@ -256,7 +258,7 @@ export enum ExerciseType {
               )}
             </div> 
           )}
-
+        // section for daily practice
         <StartQuiz
         isOpen={isModalOpen}
         onClose={() => {
